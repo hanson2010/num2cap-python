@@ -11,8 +11,6 @@ version 0.1
 from decimal import Decimal
 
 def num2cap(num = Decimal('0')):
-    # 1995年3月18日第八届全国人民代表大会第三次会议通过的《中华人民共和国中国人民
-    # 银行法》以法律的形式明确规定了“人民币的单位为元”
     NUMERIC = (u'零', u'壹', u'贰', u'叁', u'肆', u'伍', u'陆', u'柒', u'捌', u'玖')
     PLACE = (u'拾', u'佰', u'仟', u'万', u'拾', u'佰', u'仟', u'亿')
     UNIT = (u'分', u'角', u'元')
