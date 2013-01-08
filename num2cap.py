@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-将小于一百万亿元的小写金额转换为大写
+将小于一百万亿元的小写金额转换为汉字大写金额
 （中国2011年GDP为47.3104万亿元）
 by Haisheng HU <hanson@sdf.org>
 
@@ -15,7 +15,7 @@ def num2cap(num = Decimal('0')):
     PLACE = (u'拾', u'佰', u'仟', u'万', u'拾', u'佰', u'仟', u'亿')
     UNIT = (u'分', u'角', u'元')
     ADDENDUM = (u'负', u'整')
-    chn = ''
+    ret = ''
     s = '%d' % (num * 100)
     l = len(s)
     # 零
@@ -23,7 +23,7 @@ def num2cap(num = Decimal('0')):
         return NUMERIC[0] + UNIT[2] + ADDENDUM[1]
     # 负数
     if num < 0:
-        chn += ADDENDUM[0]
+        ret += ADDENDUM[0]
         s = s[1:]
         l -= 1
     # 100 0000 0000 0000 00
@@ -42,23 +42,23 @@ def num2cap(num = Decimal('0')):
             if (place == 0) and (count > 0) and (l > 1) or \
 (place >= 2) and (place not in [5, 9, 13]) and (count > 0) or \
 (place >= 2) and (count >= 4):
-                chn += NUMERIC[0]
-            chn += NUMERIC[digit]
+                ret += NUMERIC[0]
+            ret += NUMERIC[digit]
             if place >= 3:
-                chn += PLACE[(place - 3) % 8]
+                ret += PLACE[(place - 3) % 8]
             else:
-                chn += UNIT[place % 3]
+                ret += UNIT[place % 3]
             count = 0
         else:
             # 当前遇到0，某些情况也需输出“万、亿、万亿”
             if (place == 6 and count < 4) or (place in [10, 14]):
-                chn += PLACE[(place - 3) % 8]
+                ret += PLACE[(place - 3) % 8]
             if place == 2:
-                chn += UNIT[place % 3]
+                ret += UNIT[place % 3]
             count += 1
     if s[l-1] == '0':
-        chn += ADDENDUM[1]
-    return chn
+        ret += ADDENDUM[1]
+    return ret
 
 if __name__ == '__main__':
     for num in [0,
